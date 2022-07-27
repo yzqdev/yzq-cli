@@ -2,11 +2,13 @@ import pc from "picocolors";
 import { Command } from "commander";
 import { HelpCommand } from "./helpCommand";
 import { WordCommand } from "./wordCommand";
+import { FileCommand } from "./fileCommand";
 
 export class CommandLoader {
   public static load(program: Command): void {
     new HelpCommand().load(program);
     new WordCommand().load(program)
+    new FileCommand().load(program)
     this.handleInvalidCommand(program);
   }
 
