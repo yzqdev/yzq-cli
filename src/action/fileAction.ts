@@ -46,42 +46,41 @@ export function createLicense(lic: licenseType) {
 }
 export function createIgnore(ignore: string) {
   console.log(pc.blue(`添加${ignore} ignore中`));
-  
+
   let exist = fs.existsSync(".gitignore");
   let ignoreFile = ".gitignore";
-   if (!exist) {
-     fs.writeFileSync(ignoreFile, "");
-   }
-   let flag=`#${ignore}\n`
-    
-    let data =  fs.readFileSync(licenseFile(ignore, "ignore"));
-   let ignoredata=fs.readFileSync(ignoreFile)
-    if (ignoredata.toString().includes(flag)) {
-      console.log(pc.red("您已经添加过了"))
-      return
+  if (!exist) {
+    fs.writeFileSync(ignoreFile, "");
+  }
+  let flag = `#${ignore}\n`;
+
+  let data = fs.readFileSync(licenseFile(ignore, "ignore"));
+  let ignoredata = fs.readFileSync(ignoreFile);
+  if (ignoredata.toString().includes(flag)) {
+    console.log(pc.red("您已经添加过了"));
+    return;
+  }
+  let ignoreString = flag + data;
+
+  fs.open(ignoreFile, "w", function (err, fd) {
+    //创建写入内容缓冲区
+    if (err) {
+      throw err;
     }
-    let ignoreString=flag+data
-     
-    fs.open(ignoreFile, "w", function (err, fd) {
-      //创建写入内容缓冲区
-    if (err ) {
-      throw err
-    }
-     
-      fs.write(
-        fd,
-         `${data}\n${ignoreString}`,
-        0,
-        
-        function (err, written, buffer) {
-          if (err) {
-            console.log(err);
-            throw err 
-          }else{
-            console.log(pc.cyan(`添加${ignore}忽略文件成功`));
-          }
+
+    fs.write(
+      fd,
+      `${data}\n${ignoreString}`,
+      0,
+
+      function (err, written, buffer) {
+        if (err) {
+          console.log(err);
+          throw err;
+        } else {
+          console.log(pc.cyan(`添加${ignore}忽略文件成功`));
         }
-      );
-    });
-    
+      }
+    );
+  });
 }

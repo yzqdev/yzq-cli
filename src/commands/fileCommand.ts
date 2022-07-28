@@ -1,11 +1,12 @@
 import { createIgnore, createLicense } from "@/action/fileAction";
 import {
   IgnoreOption,
+  ignores,
   LicenseOption,
   licenses,
   opensourceUrl,
 } from "@/interfaces/option";
-import { Command } from "commander";
+import { Command, Option } from "commander";
 import open from "open";
 import pc from "picocolors";
 import { AbstractCommand } from "./abstractCommand";
@@ -16,7 +17,7 @@ export class FileCommand extends AbstractCommand {
     fileCmd
       .command("lic")
       .description("添加一个license")
-      .option("-l, --license <license>", "license类型")
+      .addOption(new Option("-l, --license <license>", "license类型").choices(licenses))
 
       .option("-o, --open", "查看协议类型")
 
@@ -29,7 +30,7 @@ export class FileCommand extends AbstractCommand {
           createLicense(item.license);
         } else {
           console.log(
-            pc.red(`输入不合法,请输入${licenses.join(",")}中的一个!`)
+            pc.red(`输入不合法,请输入-l 加${licenses.join(",")}中的一个!`)
           );
           return;
         }
@@ -37,7 +38,7 @@ export class FileCommand extends AbstractCommand {
     fileCmd
       .command("ig")
       .description("添加ignore")
-      .option("-l, --lang <lang>", "编程语言名称")
+      .addOption(new Option("-l, --lang <lang>", "编程语言名称").choices(ignores))
       .action((item: IgnoreOption) => {
         if (!item.lang) {
           console.log(pc.red("请添加 -l 参数"));

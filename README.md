@@ -16,7 +16,7 @@ yarn global add yzq-cli
 
 ```text
 ➜ yzq -h
-Usage: cli <command> [options]
+Usage: yzq <command> [options]
 
 Options:
   -v, --version  当前版本.
@@ -25,6 +25,7 @@ Options:
 Commands:
   help           查看帮助
   word           获取诗词
+  file           文件相关操作
 ```
 
 ## License
