@@ -1,0 +1,9 @@
+{
+  "name": "blog",
+  "script": "java",
+  "args": ["-jar", "blog.jar"],
+  "error_file": "./log/err.log",
+  "out_file": "./log/out.log",
+  "exec_interpreter": "",
+  "exec_mode": "fork"
+}

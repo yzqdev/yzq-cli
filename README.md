@@ -1,5 +1,6 @@
 # yzq-cli
 
+<a href='https://www.npmjs.com/package/yzq-cli'><img src='https://img.shields.io/npm/v/yzq-cli'/></a>
 > A small tool, containing many features.
 
 ## install

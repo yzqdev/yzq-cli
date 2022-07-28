@@ -1,5 +1,23 @@
 import * as fs from "fs";
 import * as path from "path";
+import { fileURLToPath } from "url";
+
+
+/**
+ * 获取文件的路径
+ * @param name 文件名称
+ * @param folder  文件夹名称
+ * @returns
+ */
+export function vendorFile(name: string, folder: string): string {
+  const templateDir = path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../vendor/" + folder,
+    name 
+  );
+
+  return templateDir;
+}
 /**
  * @param {string | undefined} targetDir
  */
