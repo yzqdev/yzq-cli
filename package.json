@@ -29,29 +29,28 @@
     "dev": "esno src/index.ts",
     "start": "node bin/yzq.mjs",
     "build": "tsup",
-    "unbuild":"unbuild",
+    "unbuild": "unbuild",
     "lint": "prettier --write src/**/*.{vue,js,ts,tsx,jsx,scss,less,json}"
   },
- 
   "dependencies": {
     "@sindresorhus/tsconfig": "^7.0.0",
-    "commander": "^13.1.0",
-    "compressing": "^1.10.1",
-    "got": "^14.4.6",
-    "inquirer": "^12.4.1",
-    "open": "^10.1.0",
+    "commander": "^14.0.0",
+    "compressing": "^1.10.3",
+    "inquirer": "^12.6.3",
+    "open": "^10.1.2",
     "ora": "^8.2.0",
     "picocolors": "^1.1.1",
     "rimraf": "^6.0.1",
-    "shelljs": "^0.8.5"
+    "shelljs": "^0.10.0",
+    "undici": "^7.11.0"
   },
   "devDependencies": {
     "@types/inquirer": "^9",
-    "@types/node": "^22.13.1",
+    "@types/node": "^24.0.7",
     "esno": "^4.8.0",
-    "prettier": "^3.5.0",
-    "tsup": "^8.3.6",
-    "typescript": "^5.7.3",
-    "unbuild": "^3.3.1"
+    "prettier": "^3.6.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "unbuild": "^3.5.0"
   }
 }
