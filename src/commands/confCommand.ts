@@ -1,6 +1,6 @@
 import { copy, vendorFile } from "@/util/fileUtil";
 import { Command } from "commander";
-import pc from 'picocolors'
+import pc from "picocolors";
 import { AbstractCommand } from "./abstractCommand";
 export type pm2Type = "java" | "node" | "go";
 export interface Pm2Option {
@@ -23,10 +23,10 @@ export class ConfCommand extends AbstractCommand {
               copy(vendorFile("node.json", "pm2"), "node.json");
               break;
             default:
-                copy(vendorFile("go.json", "pm2"), "go.json");
+              copy(vendorFile("go.json", "pm2"), "go.json");
               break;
           }
-          console.log(pc.cyan(`生成pm2配置文件${option.lang}.json成功`))
+          console.log(pc.cyan(`生成pm2配置文件${option.lang}.json成功`));
         }
       });
   }

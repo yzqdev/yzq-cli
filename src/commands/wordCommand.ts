@@ -1,4 +1,4 @@
-import got from "got";
+import axios from "axios";
 import { Command } from "commander";
 import pc from "picocolors";
 import { AbstractCommand } from "./abstractCommand";
@@ -9,12 +9,16 @@ export class WordCommand extends AbstractCommand {
     program
       .command("word")
       .description("获取诗词")
-      .addHelpText("after", "例子: yzq word ")
+      .addHelpText("after", "例子: yzq word")
       .action(async () => {
-        let res: Poetry = await got(
-          "https://v1.jinrishici.com/all.json"
-        ).json();
-        console.log(pc.cyan(res.content));
+        try {
+          const res = await axios.get<Poetry>(
+            "https://v1.jinrishici.com/all.json",
+          );
+          console.log(pc.cyan(res.data.content));
+        } catch {
+          console.log(pc.red("获取诗词失败,请检查网络连接"));
+        }
       });
   }
 }

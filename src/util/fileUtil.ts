@@ -2,7 +2,6 @@ import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
 
-
 /**
  * 获取文件的路径
  * @param name 文件名称
@@ -13,7 +12,7 @@ export function vendorFile(name: string, folder: string): string {
   const templateDir = path.resolve(
     path.dirname(fileURLToPath(import.meta.url)),
     "../vendor/" + folder,
-    name 
+    name,
   );
 
   return templateDir;
@@ -39,7 +38,7 @@ export function copy(src: string, dest: string) {
  */
 export function isValidPackageName(projectName: string) {
   return /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/.test(
-    projectName
+    projectName,
   );
 }
 

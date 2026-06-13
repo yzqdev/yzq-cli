@@ -6,67 +6,39 @@ import * as path from "path";
 import pc from "picocolors";
 import { fileURLToPath } from "url";
 
+const licenseMap: Record<licenseType, string> = {
+  mit: "mit",
+  gpl: "gpl",
+  apache: "apache",
+  mpl: "mpl",
+  lgpl: "lgpl",
+};
+
 export function createLicense(lic: licenseType) {
-  let LICENSE = "LICENSE";
-  if (lic == "mit") {
-    fs.writeFile("LICENSE", mitLicense, (err) => {
-      if (err) {
-        console.log(pc.red("error occured=>" + err.message));
-        throw err;
-      }
-    });
+  if (lic === "mit") {
+    fs.writeFileSync("LICENSE", mitLicense);
+  } else if (licenseMap[lic]) {
+    copy(vendorFile(`${lic}.txt`, "lic"), "LICENSE");
   }
-  if (lic == "gpl") {
-    copy(vendorFile("gpl.txt", "lic"), LICENSE);
-  }
-  if ((lic =="apache")) {
-    copy(vendorFile("apache.txt", "lic"), LICENSE);
-  }
-  if ((lic == "mpl")) {
-    copy(vendorFile("mpl.txt", "lic"), LICENSE);
-  }
-  if ((lic =="lgpl")) {
-    copy(vendorFile("lgpl.txt", "lic"), LICENSE);
-  }
-  console.log(pc.cyan("创建" + lic + "协议文件成功!"));
+  console.log(pc.cyan(`创建${lic}协议文件成功!`));
 }
+
 export function createIgnore(ignore: string) {
   console.log(pc.blue(`添加${ignore} ignore中`));
 
-  let exist = fs.existsSync(".gitignore");
-  let ignoreFile = ".gitignore";
-  if (!exist) {
+  const ignoreFile = ".gitignore";
+  if (!fs.existsSync(ignoreFile)) {
     fs.writeFileSync(ignoreFile, "");
   }
-  let flag = `#${ignore}\n`;
 
-  let data = fs.readFileSync(vendorFile(ignore, "ignore"));
-  let ignoredata = fs.readFileSync(ignoreFile);
-  if (ignoredata.toString().includes(flag)) {
+  const flag = `#${ignore}\n`;
+  const existing = fs.readFileSync(ignoreFile, "utf-8");
+  if (existing.includes(flag)) {
     console.log(pc.red("您已经添加过了"));
     return;
   }
-  let ignoreString = flag + data;
 
-  fs.open(ignoreFile, "w", function (err, fd) {
-    //创建写入内容缓冲区
-    if (err) {
-      throw err;
-    }
-
-    fs.write(
-      fd,
-      `${data}\n${ignoreString}`,
-      0,
-
-      function (err, written, buffer) {
-        if (err) {
-          console.log(err);
-          throw err;
-        } else {
-          console.log(pc.cyan(`添加${ignore}忽略文件成功`));
-        }
-      }
-    );
-  });
+  const data = fs.readFileSync(vendorFile(ignore, "ignore"));
+  fs.writeFileSync(ignoreFile, `${existing}\n${flag}${data}\n`);
+  console.log(pc.cyan(`添加${ignore}忽略文件成功`));
 }

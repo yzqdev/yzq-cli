@@ -17,7 +17,9 @@ export class FileCommand extends AbstractCommand {
     fileCmd
       .command("lic")
       .description("添加一个license")
-      .addOption(new Option("-l, --license <license>", "license类型").choices(licenses))
+      .addOption(
+        new Option("-l, --license <license>", "license类型").choices(licenses),
+      )
 
       .option("-o, --open", "查看协议类型")
 
@@ -30,7 +32,7 @@ export class FileCommand extends AbstractCommand {
           createLicense(item.license);
         } else {
           console.log(
-            pc.red(`输入不合法,请输入-l 加${licenses.join(",")}中的一个!`)
+            pc.red(`输入不合法,请输入-l 加${licenses.join(",")}中的一个!`),
           );
           return;
         }
@@ -38,7 +40,9 @@ export class FileCommand extends AbstractCommand {
     fileCmd
       .command("ig")
       .description("添加ignore")
-      .addOption(new Option("-l, --lang <lang>", "编程语言名称").choices(ignores))
+      .addOption(
+        new Option("-l, --lang <lang>", "编程语言名称").choices(ignores),
+      )
       .action((item: IgnoreOption) => {
         if (!item.lang) {
           console.log(pc.red("请添加 -l 参数"));

@@ -4,15 +4,15 @@ import { HelpCommand } from "./helpCommand";
 import { WordCommand } from "./wordCommand";
 import { FileCommand } from "./fileCommand";
 import { ConfCommand } from "./confCommand";
-import {PkgCommand} from "@/commands/pkgCommand";
+import { PkgCommand } from "@/commands/pkgCommand";
 
 export class CommandLoader {
   public static load(program: Command): void {
     new HelpCommand().load(program);
     new WordCommand().load(program);
     new FileCommand().load(program);
-    new ConfCommand().load(program)
-    new PkgCommand().load(program)
+    new ConfCommand().load(program);
+    new PkgCommand().load(program);
     this.handleInvalidCommand(program);
   }
 
@@ -20,7 +20,7 @@ export class CommandLoader {
     program.on("command:*", () => {
       console.error(
         `\n Invalid command: ${pc.red("%s")}`,
-        program.args.join(" ")
+        program.args.join(" "),
       );
       console.log(`输入${pc.red("--help")}查看命令  \n`);
       process.exit(1);

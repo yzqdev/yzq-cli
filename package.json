@@ -1,6 +1,7 @@
 {
   "name": "yzq-cli",
   "version": "0.0.4",
+  "type": "module",
   "description": "",
   "author": {
     "name": "yzqdev",
@@ -28,29 +29,24 @@
   "scripts": {
     "dev": "esno src/index.ts",
     "start": "node bin/yzq.mjs",
-    "build": "tsup",
+    "build": "tsdown",
     "unbuild": "unbuild",
     "lint": "prettier --write src/**/*.{vue,js,ts,tsx,jsx,scss,less,json}"
   },
   "dependencies": {
-    "@sindresorhus/tsconfig": "^7.0.0",
-    "commander": "^14.0.0",
-    "compressing": "^1.10.3",
-    "inquirer": "^12.6.3",
-    "open": "^10.1.2",
-    "ora": "^8.2.0",
-    "picocolors": "^1.1.1",
-    "rimraf": "^6.0.1",
-    "shelljs": "^0.10.0",
-    "undici": "^7.11.0"
+    "axios": "^1.17.0",
+    "commander": "^15.0.0",
+    "compressing": "^2.1.1",
+    "open": "^11.0.0",
+    "picocolors": "^1.1.1"
   },
   "devDependencies": {
-    "@types/inquirer": "^9",
-    "@types/node": "^24.0.7",
+    "@sindresorhus/tsconfig": "^8.1.0",
+    "@types/node": "^25.9.3",
     "esno": "^4.8.0",
-    "prettier": "^3.6.2",
-    "tsup": "^8.5.0",
-    "typescript": "^5.8.3",
-    "unbuild": "^3.5.0"
+    "prettier": "^3.8.4",
+    "tsdown": "^0.22.2",
+    "typescript": "^6.0.3",
+    "unbuild": "^3.6.1"
   }
 }
