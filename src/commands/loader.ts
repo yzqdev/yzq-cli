@@ -4,7 +4,7 @@ import { HelpCommand } from "./helpCommand";
 import { WordCommand } from "./wordCommand";
 import { FileCommand } from "./fileCommand";
 import { ConfCommand } from "./confCommand";
-import { PkgCommand } from "@/commands/pkgCommand";
+import { FolderCommand } from "@/commands/folderCommand";
 
 export class CommandLoader {
   public static load(program: Command): void {
@@ -12,7 +12,7 @@ export class CommandLoader {
     new WordCommand().load(program);
     new FileCommand().load(program);
     new ConfCommand().load(program);
-    new PkgCommand().load(program);
+    new FolderCommand().load(program);
     this.handleInvalidCommand(program);
   }
 

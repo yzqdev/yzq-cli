@@ -1,17 +1,34 @@
 {
   //https://www.typescriptlang.org/tsconfig#compilerOptions
-   "extends": "@sindresorhus/tsconfig",
-   "compilerOptions": {
+
+  "compilerOptions": {
     "outDir": "dist",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "allowImportingTsExtensions": true,
+    "moduleResolution": "bundler",
     "target": "ESNext",
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
     "baseUrl": "./",
     "paths": {
-      "@/*":["src/*"]
-    },
+      "@/*": [
+        "src/*"
+      ]
+    },"noEmit": true,
+    "include": [
+      "src/**/*",
+      "bin/**/*",
+      "*.ts",
+      "*.d.ts"
+    ],
+    "exclude": [
+      "node_modules",
+      "dist"
+    ],  "types": ["node"],
     "allowJs": true,
+    "esModuleInterop": true,
     "resolveJsonModule": true
-   }
+  }
 }
