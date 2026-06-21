@@ -1,9 +1,9 @@
 import { Command } from "commander";
 import pc from "picocolors";
 import compressing from "compressing";
-import fs from "node:fs"
-import path from 'node:path'
-import ora from "ora"
+import fs from "node:fs";
+import path from "node:path";
+import ora from "ora";
 import { AbstractCommand } from "./abstractCommand";
 import {
   printCleanResult,
@@ -49,48 +49,62 @@ export class FolderCommand extends AbstractCommand {
         printCleanResult(opts.dir, !!opts.dryRun);
       });
 
-      folderCmd
-          .command("zip")
-          .description("压缩文件夹")
-          .argument("<source>", "源文件夹路径")
-          .option("-o, --output <output>", "输出压缩包路径 (默认: 源文件夹同名.zip)")
-          .action(async (source, opts) => {
-              // 1. 将相对路径统一转换为绝对路径，避免相对路径计算错误
-              const absoluteSource = path.resolve(process.cwd(), source);
+    folderCmd
+      .command("zip")
+      .description("压缩文件夹")
+      .argument("<source>", "源文件夹路径")
+      .option(
+        "-o, --output <output>",
+        "输出压缩包路径 (默认: 源文件夹同名.zip)",
+      )
+      .action(async (source, opts) => {
+        // 1. 将相对路径统一转换为绝对路径，避免相对路径计算错误
+        const absoluteSource = path.resolve(process.cwd(), source);
 
-              // 2. 基础校验：判断源文件夹是否存在
-              if (!fs.existsSync(absoluteSource)) {
-                  console.log(pc.red(`❌ 错误: 源路径不存在 -> "${source}"`));
-                  return;
-              }
+        // 2. 基础校验：判断源文件夹是否存在
+        if (!fs.existsSync(absoluteSource)) {
+          console.log(pc.red(`❌ 错误: 源路径不存在 -> "${source}"`));
+          return;
+        }
 
-              const stats = fs.statSync(absoluteSource);
-              if (!stats.isDirectory()) {
-                  console.log(pc.red(`❌ 错误: 源路径不是一个文件夹 -> "${source}"`));
-                  return;
-              }
+        const stats = fs.statSync(absoluteSource);
+        if (!stats.isDirectory()) {
+          console.log(pc.red(`❌ 错误: 源路径不是一个文件夹 -> "${source}"`));
+          return;
+        }
 
-              // 3. 智能推导输出路径
-              // 即使输入 . 或 ./，也能正确拿到当前文件夹的真实名称
-              const folderName = path.basename(absoluteSource);
-              const defaultOutput = path.join(path.dirname(absoluteSource), `${folderName}.zip`);
-              const absoluteOutput = opts.output ? path.resolve(process.cwd(), opts.output) : defaultOutput;
+        // 3. 智能推导输出路径
+        // 即使输入 . 或 ./，也能正确拿到当前文件夹的真实名称
+        const folderName = path.basename(absoluteSource);
+        const defaultOutput = path.join(
+          path.dirname(absoluteSource),
+          `${folderName}.zip`,
+        );
+        const absoluteOutput = opts.output
+          ? path.resolve(process.cwd(), opts.output)
+          : defaultOutput;
 
-              // 4. 使用 ora 开启炫酷的 Loading 动画
-              const spinner = ora(`正在压缩文件夹: ${pc.yellow(folderName)} ...`).start();
+        // 4. 使用 ora 开启炫酷的 Loading 动画
+        const spinner = ora(
+          `正在压缩文件夹: ${pc.yellow(folderName)} ...`,
+        ).start();
 
-              try {
-                  // 执行压缩
-                  await compressing.zip.compressDir(absoluteSource, absoluteOutput);
+        try {
+          // 执行压缩
+          await compressing.zip.compressDir(absoluteSource, absoluteOutput);
 
-                  // 成功提示
-                  spinner.succeed(pc.cyan(`压缩成功! 已保存至: ${pc.bold(absoluteOutput)}`));
-              } catch (e) {
-                  // 失败提示
-                  spinner.fail(pc.red(`压缩失败!`));
-                  console.error(pc.red(`原因: ${e instanceof Error ? e.message : String(e)}`));
-              }
-          });
+          // 成功提示
+          spinner.succeed(
+            pc.cyan(`压缩成功! 已保存至: ${pc.bold(absoluteOutput)}`),
+          );
+        } catch (e) {
+          // 失败提示
+          spinner.fail(pc.red(`压缩失败!`));
+          console.error(
+            pc.red(`原因: ${e instanceof Error ? e.message : String(e)}`),
+          );
+        }
+      });
 
     folderCmd
       .command("unzip")

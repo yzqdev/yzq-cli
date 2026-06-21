@@ -1,10 +1,10 @@
 import { mitLicense } from "@/constants/lic";
 import { LicenseOption, licenseType } from "@/interfaces/option";
-import   fs from "fs";
+import fs from "fs";
 import { copy, vendorFile } from "@/util/fileUtil";
 
 import pc from "picocolors";
-import {get} from 'lodash-es'
+import { get } from "lodash-es";
 
 const licenseMap: Record<licenseType, string> = {
   mit: "mit",

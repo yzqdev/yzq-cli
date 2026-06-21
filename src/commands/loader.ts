@@ -5,6 +5,9 @@ import { WordCommand } from "./wordCommand";
 import { FileCommand } from "./fileCommand";
 import { ConfCommand } from "./confCommand";
 import { FolderCommand } from "@/commands/folderCommand";
+import { NetCommand } from "@/commands/netCommand";
+import { ProcessCommand } from "@/commands/processCommand";
+import { EnvCommand } from "@/commands/envCommand";
 
 export class CommandLoader {
   public static load(program: Command): void {
@@ -13,6 +16,9 @@ export class CommandLoader {
     new FileCommand().load(program);
     new ConfCommand().load(program);
     new FolderCommand().load(program);
+    new NetCommand().load(program);
+    new ProcessCommand().load(program);
+    new EnvCommand().load(program);
     this.handleInvalidCommand(program);
   }
 
